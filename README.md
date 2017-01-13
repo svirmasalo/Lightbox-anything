@@ -19,4 +19,4 @@ Lightbox anything does what it says; Select element(s) you wish to show in a lig
  - You can see the demo from your-project-folder/Lightbox-anything/demo
 
 ### Notes
- - This plugin uses `let` and `const -variable types.
+ - This plugin uses `let` and `const` -variable types.
