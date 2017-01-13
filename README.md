@@ -16,7 +16,7 @@ Lightbox anything does what it says; Select element(s) you wish to show in a lig
  - Lightboxes styles are set from the lightBoxAnything-file. Replace or modify them the way you feel like.
 
 ## Demo
- - You can see the demo from <your_project_path>/Lightbox-anything/demo
+ - You can see the demo from your-project-folder/Lightbox-anything/demo
 
 ### Notes
  - This plugin uses let and const -variable types.
