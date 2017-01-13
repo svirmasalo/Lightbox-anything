@@ -8,7 +8,7 @@ Lightbox anything does what it says; Select element(s) you wish to show in a lig
 
 ## Usage
  - Edit lightboxAnything.js-file with your preferred editor
- - Select elements you wish to show in a lightbox by adding some kind of selector to the array called 'itemsToLightbox'. You can do it with vanilla JS or with jQuery like I did.font_small
+ - Select elements you wish to show in a lightbox by adding some kind of selector to the array called 'itemsToLightbox'. You can do it with vanilla JS or with jQuery like I did.
  - Refres the page and try it.
  - If it is not working, there's either problems with your jQuery or browser.
 
