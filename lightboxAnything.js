@@ -28,7 +28,7 @@ var globalSettings = {
 
 
 /**
-* Select elements to use in lightbox
+* SELECT ELEMENTS TO SHOW IN A LIGHTBOX
 */
 const itemsToLightbox = [
   $('#a1'),
