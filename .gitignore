@@ -1,3 +1,4 @@
+.gitignore
 node_modules/
 lba.sublime-project
 lba.sublime-workspace
