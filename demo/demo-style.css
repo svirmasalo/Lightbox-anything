@@ -94,6 +94,26 @@ footer.site-footer{
 	padding:1rem 1rem;
 	text-align: center;
 }
+#authorInfo{
+	display: none;
+}
+td:first-child:after{
+	content:':';
+}
+.site-header h1 span{
+	text-decoration: underline;
+	transition:all 248ms ease-in-out;
+}
+
+.site-header h1 span:hover:after{
+	opacity: 1;
+	content: '<-- Psst...Works as a trigger element.';
+	margin-left: 1em;
+	background: white;
+	font-size: 12px;
+	padding: .5em;
+	color:black;
+}
 @media screen and (min-width: 768px){
 	.article-wrapper{
 	}

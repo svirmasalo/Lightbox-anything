@@ -25,7 +25,7 @@
 
     /*Some variables*/
     var lightboxAnythingStates = {
-      'items': false,
+      'objects': false,
       'triggers': false
     };
     var isKeyDown = false;
@@ -38,9 +38,7 @@
     * SELECT OBJECTS TO SHOW IN A LIGHTBOX
     */
     var OBJECTS_TO_LIGHTBOX = [$('#a1'), $('#a2'), $('#a3'), $('#a4')];
-    var TRIGGER_ELEMENTS = [
-      //$('*[data-target='lightbox']');
-    ];
+    var TRIGGER_ELEMENTS = [$('*[data-target="authorInfo"]')];
 
     /**
     * Test if any of selected objects/triggers exists
@@ -55,7 +53,7 @@
       });
     }
 
-    testSelected(OBJECTS_TO_LIGHTBOX, 'items');
+    testSelected(OBJECTS_TO_LIGHTBOX, 'objects');
     testSelected(TRIGGER_ELEMENTS, 'triggers');
 
     /*The "main" function starts*/
@@ -161,37 +159,44 @@
         multipleElements.length = 0;
       });
     }
+    if (OBJECTS_TO_LIGHTBOX.length != 0 && lightboxAnythingStates.objects === true) {
 
-    $(OBJECTS_TO_LIGHTBOX).each(function (key, value) {
+      console.log("objects to lightbox: yes!");
+      $(OBJECTS_TO_LIGHTBOX).each(function (key, value) {
 
-      var elementObject = value;
+        var elementObject = value;
 
-      elementObject[0].addEventListener("click", function () {
+        elementObject[0].addEventListener("click", function () {
 
-        if (isKeyDown) {
-          /*
-          * Highlight selected
-          */
-          value.css("box-shadow", "1px 1px 5px " + globalSettings.highlightColor);
-          /*
-          * Send selected element to array of selected e
-          */
-          multiselectElements(elementObject);
-        } else {
-          lightboxAnything(elementObject, []);
-        }
-      }, false);
-    });
+          if (isKeyDown) {
+            /*
+            * Highlight selected
+            */
+            value.css("box-shadow", "1px 1px 5px " + globalSettings.highlightColor);
+            /*
+            * Send selected element to array of selected e
+            */
+            multiselectElements(elementObject);
+          } else {
+            lightboxAnything(elementObject, []);
+          }
+        }, false);
+      });
+    }
 
     /**
     * Bind event handlers to triggers
     */
 
     if (TRIGGER_ELEMENTS.length != 0 && lightboxAnythingStates.triggers === true) {
+
       console.log("triggers to lightbox: yes!");
 
       $(TRIGGER_ELEMENTS).each(function (key, value) {
-
+        /**
+        * Add cursor pointer to trigger element
+        */
+        $(this).css('cursor', 'pointer');
         /**
         * Bind event listener to trigger
         */

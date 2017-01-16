@@ -44,7 +44,7 @@ const OBJECTS_TO_LIGHTBOX = [
   $('#a4')
 ];
 const TRIGGER_ELEMENTS = [
-  //$('*[data-target='lightbox']');
+  $('*[data-target="authorInfo"]')
 ];
 
 
@@ -224,12 +224,16 @@ if(TRIGGER_ELEMENTS.length != 0 && lightboxAnythingStates.triggers === true){
   console.log("triggers to lightbox: yes!");
 
   $(TRIGGER_ELEMENTS).each(function(key,value){
-
+    /**
+    * Add cursor pointer to trigger element
+    */
+    $(this).css('cursor','pointer');
     /**
     * Bind event listener to trigger
     */
-    var targetElementString = $(this).attr("data-target");
-    var targetElementObject = $('#'+targetElementString);   
+    let targetElementString = $(this).attr("data-target");
+    let targetElementObject = $('#'+targetElementString);
+
 
     value[0].addEventListener("click",function(){
    
