@@ -11,7 +11,7 @@
 
 (function( $ ) {
 
-console.log("hello from Lightbox anything");
+console.log('Lightbox anything: https://github.com/svirmasalo/Lightbox-anything');
 
 /**
   If things are not working - you might be using outdated safari or 
@@ -19,7 +19,14 @@ console.log("hello from Lightbox anything");
   If that happens to be the situation, just replace any const and let with var.
 **/
 
+$(document).ready(function(){
+
+
 /*Some variables*/
+var lightboxAnythingStates = {
+  'objects' : false,
+  'triggers' : false
+}
 var isKeyDown = false;
 var selectedElements = [];
 var globalSettings = {
@@ -28,14 +35,35 @@ var globalSettings = {
 
 
 /**
-* SELECT ELEMENTS TO SHOW IN A LIGHTBOX
+* SELECT OBJECTS TO SHOW IN A LIGHTBOX
 */
-const itemsToLightbox = [
+const OBJECTS_TO_LIGHTBOX = [
   $('#a1'),
   $('#a2'),
   $('#a3'),
   $('#a4')
 ];
+const TRIGGER_ELEMENTS = [
+  //$('*[data-target='lightbox']');
+];
+
+
+/**
+* Test if any of selected objects/triggers exists
+*/
+
+function testSelected(testList, testListState){
+  $(testList).each(function(){
+    if($(this).length > 0){
+      lightboxAnythingStates[testListState] = true;
+    }
+    //return lightboxAnythingStates;
+  });
+}
+
+testSelected(OBJECTS_TO_LIGHTBOX,'objects');
+testSelected(TRIGGER_ELEMENTS,'triggers');
+
 
 /*The "main" function starts*/
 function lightboxAnything(singleElement, multipleElements){
@@ -159,29 +187,56 @@ function lightboxAnything(singleElement, multipleElements){
         multipleElements.length = 0;
     });
 }
+if(OBJECTS_TO_LIGHTBOX.length != 0 && lightboxAnythingStates.objects === true){
 
-$(itemsToLightbox).each(function(key,value){
+  console.log("objects to lightbox: yes!");
+  $(OBJECTS_TO_LIGHTBOX).each(function(key,value){
 
-	let elementObject = value;
+  	let elementObject = value;
 
-	elementObject[0].addEventListener("click",function(){
+  	elementObject[0].addEventListener("click",function(){
 
-	if(isKeyDown){
-		/*
-		* Highlight selected
-		*/
-  	value.css("box-shadow","1px 1px 5px "+ globalSettings.highlightColor);
-  	/*
-  	* Send selected element to array of selected e
-  	*/
-  	multiselectElements(elementObject);
+  	if(isKeyDown){
+  		/*
+  		* Highlight selected
+  		*/
+    	value.css("box-shadow","1px 1px 5px "+ globalSettings.highlightColor);
+    	/*
+    	* Send selected element to array of selected e
+    	*/
+    	multiselectElements(elementObject);
 
-	}else{
-	  lightboxAnything(elementObject,[]);
-	}
-	},false);
-  
-});
+  	}else{
+  	  lightboxAnything(elementObject,[]);
+  	}
+  	},false);
+    
+  });
+}
+
+/**
+* Bind event handlers to triggers
+*/
+
+
+if(TRIGGER_ELEMENTS.length != 0 && lightboxAnythingStates.triggers === true){
+
+  console.log("triggers to lightbox: yes!");
+
+  $(TRIGGER_ELEMENTS).each(function(key,value){
+
+    /**
+    * Bind event listener to trigger
+    */
+    var targetElementString = $(this).attr("data-target");
+    var targetElementObject = $('#'+targetElementString);   
+
+    value[0].addEventListener("click",function(){
+   
+      lightboxAnything(targetElementObject,[]);
+    });
+  }); 
+}
 
 function multiselectElements(selectedElement){
   selectedElements.push(selectedElement);
@@ -214,5 +269,7 @@ $(document).on("keyup",function(e){
 /*
 * End of triggers
 **/
+
+});
 
 } )( jQuery );

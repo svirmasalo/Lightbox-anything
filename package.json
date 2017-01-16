@@ -1,0 +1,34 @@
+{
+  "name": "lightbox-anything",
+  "version": "0.7.0",
+  "description": "Select one or more elements to show in lightbox.",
+  "main": "lightboxAnything.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svirmasalo/Lightbox-anything.git"
+  },
+  "keywords": [
+    "lightbox",
+    "jQuery",
+    "javascript",
+    "plugin",
+    "ES6"
+  ],
+  "author": "Sampo Virmasalo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/svirmasalo/Lightbox-anything/issues"
+  },
+  "homepage": "https://github.com/svirmasalo/Lightbox-anything#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-watch": "^4.3.11"
+  }
+}
