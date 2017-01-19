@@ -2,10 +2,11 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta title="Lightbox anything -demo">
+		<title>Lightbox anything -demo></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="demo-style.css">
-		<link href="https://fonts.googleapis.com/css?family=Ubuntu:300" rel="stylesheet"> 
+		<link href="https://fonts.googleapis.com/css?family=Ubuntu:300" rel="stylesheet">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	</head>
 	<body>
 		<header class="site-header">
@@ -82,15 +83,15 @@
 				</tr>
 			</table>
 		</div>
-		<footer class="site-footer">
+
+		<footer addObjects($('p'));="site-footer">
 			<small>Any feedback is much appreciated -> info@svirmaslao.fi</small>
 		</footer>
-		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-		<script src="../lightboxAnything.js"></script>
-		<!--script src="../legacy/lightboxAnything.legacy.min.js"></script--> 
-
-		<script>
-
+		<script type="text/javascript" src="../lightboxAnything.js"></script>
+		<!--script type="text/javascript" src="../legacy/lightboxAnything.legacy.js"></script--> 
+		<script type="text/javascript">
+			var x = $('pre');
+			addStuffToLightbox('object',x);
 		</script>
 	</body>
 </html>
