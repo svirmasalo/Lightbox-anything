@@ -84,7 +84,7 @@
 			</table>
 		</div>
 
-		<footer addObjects($('p'));="site-footer">
+		<footer class="site-footer">
 			<small>Any feedback is much appreciated -> info@svirmaslao.fi</small>
 		</footer>
 		<script type="text/javascript" src="../lightboxAnything.js"></script>
@@ -92,6 +92,11 @@
 		<script type="text/javascript">
 			var x = $('pre');
 			addStuffToLightbox('object',x);
+			var y = [
+				$('.site-header h2'),
+				$('.site-footer')
+			];
+			addStuffToLightbox('object',y);
 		</script>
 	</body>
 </html>

@@ -1,5 +1,7 @@
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 /**
 * Author: Sampo Virmasalo
 * Author URL: svirmasalo.fi
@@ -41,7 +43,6 @@ function init(extraObjects, extraTriggers) {
   * Add extra elements
   */
   function pushExtra(extra, array) {
-
     if (Array.isArray(extra)) {
       $(extra).each(function () {
         array.push(this);
@@ -53,13 +54,13 @@ function init(extraObjects, extraTriggers) {
     return array;
   }
 
-  if (extraObjects.length != 0) {
+  if ((typeof extraObjects === 'undefined' ? 'undefined' : _typeof(extraObjects)) === 'object') {
     pushExtra(extraObjects, objectsToLightbox);
   }
-  if (extraTriggers.length != 0) {
+  if ((typeof extraTriggers === 'undefined' ? 'undefined' : _typeof(extraTriggers)) === 'object') {
     pushExtra(extraTriggers, triggerElements);
   }
-
+  console.log("objectsToLightbox: ");
   console.log(objectsToLightbox);
   /**
   * Test if any of selected objects/triggers exists
@@ -176,42 +177,43 @@ function init(extraObjects, extraTriggers) {
     * Clear lightbox and element array
     */
     $("#closeLightbox").click(function () {
+      console.log("close");
       lightboxElement.remove();
       multipleElements.length = 0;
     });
   }
-  if (objectsToLightbox.length != 0 && lightboxAnythingStates.objects === true) {
+  function addEventListenersToObjects() {
+    if (objectsToLightbox.length != 0 && lightboxAnythingStates.objects === true) {
 
-    console.log("objects to lightbox: yes!");
-    $(objectsToLightbox).each(function (key, value) {
+      $(objectsToLightbox).each(function (key, value) {
 
-      var elementObject = value;
+        var elementObject = value;
 
-      elementObject[0].addEventListener("click", function () {
+        elementObject[0].addEventListener("click", function () {
 
-        if (isKeyDown) {
-          /*
-          * Highlight selected
-          */
-          value.css("box-shadow", "1px 1px 5px " + globalSettings.highlightColor);
-          /*
-          * Send selected element to array of selected e
-          */
-          multiselectElements(elementObject);
-        } else {
-          lightboxAnything(elementObject, []);
-        }
-      }, false);
-    });
+          if (isKeyDown) {
+            /*
+            * Highlight selected
+            */
+            value.css("box-shadow", "1px 1px 5px " + globalSettings.highlightColor);
+            /*
+            * Send selected element to array of selected e
+            */
+            multiselectElements(elementObject);
+          } else {
+            lightboxAnything(elementObject, []);
+          }
+        }, false);
+      });
+    }
   }
+  addEventListenersToObjects();
 
   /**
   * Bind event handlers to triggers
   */
 
   if (triggerElements.length != 0 && lightboxAnythingStates.triggers === true) {
-
-    console.log("triggers to lightbox: yes!");
 
     $(triggerElements).each(function (key, value) {
       /**
@@ -231,15 +233,9 @@ function init(extraObjects, extraTriggers) {
     });
   }
 
-  init();
-
-  function addObjects(object) {
-    x = $('pre');
-    init(object, '');
-  }{
+  function multiselectElements(selectedElement) {
     selectedElements.push(selectedElement);
   }
-
   /**
   * Triggers
   */
@@ -268,11 +264,11 @@ function init(extraObjects, extraTriggers) {
 function addStuffToLightbox(type, stuff) {
   if (type == 'trigger') {
     init('', stuff);
-  } else {
+  }
+  if (type == 'object') {
     init(stuff, '');
   }
+  console.log('extra objects or triggers added');
 }
 
-$(document).ready(function () {
-  init('', '');
-});
+init('', '');

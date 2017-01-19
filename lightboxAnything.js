@@ -47,7 +47,6 @@ function init(extraObjects, extraTriggers){
   * Add extra elements
   */
   function pushExtra(extra,array){
-
     if(Array.isArray(extra)){
       $(extra).each(function(){
         array.push(this);
@@ -60,13 +59,13 @@ function init(extraObjects, extraTriggers){
     return array;
   }
 
-  if(extraObjects.length != 0){
+  if(typeof extraObjects === 'object'){
     pushExtra(extraObjects, objectsToLightbox);
   }
-  if(extraTriggers.length != 0){
+  if(typeof extraTriggers === 'object'){
     pushExtra(extraTriggers, triggerElements);
   }
-
+  console.log("objectsToLightbox: ");
   console.log(objectsToLightbox);
   /**
   * Test if any of selected objects/triggers exists
@@ -203,37 +202,39 @@ function init(extraObjects, extraTriggers){
       * Clear lightbox and element array
       */
       $("#closeLightbox").click(function(){
+          console.log("close");
           lightboxElement.remove();
           multipleElements.length = 0;
       });
   }
-  if(objectsToLightbox.length != 0 && lightboxAnythingStates.objects === true){
+  function addEventListenersToObjects(){
+    if(objectsToLightbox.length != 0 && lightboxAnythingStates.objects === true){
 
-    console.log("objects to lightbox: yes!");
-    $(objectsToLightbox).each(function(key,value){
+      $(objectsToLightbox).each(function(key,value){
 
+          let elementObject = value;
 
-      let elementObject = value;
+          elementObject[0].addEventListener("click",function(){
 
-      elementObject[0].addEventListener("click",function(){
+          if(isKeyDown){
+            /*
+            * Highlight selected
+            */
+            value.css("box-shadow","1px 1px 5px "+ globalSettings.highlightColor);
+            /*
+            * Send selected element to array of selected e
+            */
+            multiselectElements(elementObject);
 
-      if(isKeyDown){
-        /*
-        * Highlight selected
-        */
-        value.css("box-shadow","1px 1px 5px "+ globalSettings.highlightColor);
-        /*
-        * Send selected element to array of selected e
-        */
-        multiselectElements(elementObject);
-
-      }else{
-        lightboxAnything(elementObject,[]);
-      }
-      },false);
-      
-    });
+          }else{
+            lightboxAnything(elementObject,[]);
+          }
+          },false);
+        
+      });
+    }
   }
+  addEventListenersToObjects();
 
   /**
   * Bind event handlers to triggers
@@ -242,36 +243,31 @@ function init(extraObjects, extraTriggers){
 
   if(triggerElements.length != 0 && lightboxAnythingStates.triggers === true){
 
-    console.log("triggers to lightbox: yes!");
 
     $(triggerElements).each(function(key,value){
-      /**
-      * Add cursor pointer to trigger element
-      */
-      $(this).css('cursor','pointer');
-      /**
-      * Bind event listener to trigger
-      */
-      let targetElementString = $(this).attr("data-target");
-      let targetElementObject = $('#'+targetElementString);
+        /**
+        * Add cursor pointer to trigger element
+        */
+        $(this).css('cursor','pointer');
+        /**
+        * Bind event listener to trigger
+        */
+        let targetElementString = $(this).attr("data-target");
+        let targetElementObject = $('#'+targetElementString);
 
 
-      value[0].addEventListener("click",function(){
-     
-        lightboxAnything(targetElementObject,[]);
-      });
+        value[0].addEventListener("click",function(){
+       
+          lightboxAnything(targetElementObject,[]);
+        });
+
     }); 
   }
 
-        init();
 
-      function addObjects(object){
-        x = $('pre');
-        init(object,'');
-      }{
+  function multiselectElements(selectedElement){
     selectedElements.push(selectedElement);
   }
-
   /**
   * Triggers
   */
@@ -302,12 +298,11 @@ function init(extraObjects, extraTriggers){
 function addStuffToLightbox(type, stuff){
   if(type == 'trigger'){
     init('',stuff);
-  }else{
+  }
+  if(type == 'object'){
     init(stuff,'');
   }
+  console.log('extra objects or triggers added');
 }
 
-
-$(document).ready(function(){
-  init('','');
-});
+init('','');
