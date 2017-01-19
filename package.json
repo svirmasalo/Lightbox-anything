@@ -1,6 +1,6 @@
 {
   "name": "lightbox-anything",
-  "version": "0.7.0",
+  "version": "0.7.5",
   "description": "Select one or more elements to show in lightbox.",
   "main": "lightboxAnything.js",
   "scripts": {

@@ -5,7 +5,7 @@
 * ---
 * Plugin name: Lightbox anything
 * Plugin description: Select element(s) to show in a lightbox and the plugin does the rest. 
-* Plugin version: 0.5.0
+* Plugin version: 0.7.5
 * Date: January 13, 2017
 **/
 
@@ -65,8 +65,6 @@ function init(extraObjects, extraTriggers){
   if(typeof extraTriggers === 'object'){
     pushExtra(extraTriggers, triggerElements);
   }
-  console.log("objectsToLightbox: ");
-  console.log(objectsToLightbox);
   /**
   * Test if any of selected objects/triggers exists
   */
@@ -212,25 +210,33 @@ function init(extraObjects, extraTriggers){
 
       $(objectsToLightbox).each(function(key,value){
 
+
           let elementObject = value;
+          /**
+          * in case of previous listeners...
+          */
 
-          elementObject[0].addEventListener("click",function(){
+          if(elementObject.attr('lba-event-listener') != 'true'){
 
-          if(isKeyDown){
-            /*
-            * Highlight selected
-            */
-            value.css("box-shadow","1px 1px 5px "+ globalSettings.highlightColor);
-            /*
-            * Send selected element to array of selected e
-            */
-            multiselectElements(elementObject);
+            elementObject.attr('lba-event-listener','true');
 
-          }else{
-            lightboxAnything(elementObject,[]);
+            elementObject[0].addEventListener("click",function(){
+
+            if(isKeyDown){
+              /*
+              * Highlight selected
+              */
+              value.css("box-shadow","1px 1px 5px "+ globalSettings.highlightColor);
+              /*
+              * Send selected element to array of selected e
+              */
+              multiselectElements(elementObject);
+
+            }else{
+              lightboxAnything(elementObject,[]);
+            }
+            },false);
           }
-          },false);
-        
       });
     }
   }
@@ -240,30 +246,36 @@ function init(extraObjects, extraTriggers){
   * Bind event handlers to triggers
   */
 
-
-  if(triggerElements.length != 0 && lightboxAnythingStates.triggers === true){
-
-
-    $(triggerElements).each(function(key,value){
-        /**
-        * Add cursor pointer to trigger element
-        */
-        $(this).css('cursor','pointer');
-        /**
-        * Bind event listener to trigger
-        */
-        let targetElementString = $(this).attr("data-target");
-        let targetElementObject = $('#'+targetElementString);
+  function addEventListenersToTriggers(){
+    if(triggerElements.length != 0 && lightboxAnythingStates.triggers === true){
 
 
-        value[0].addEventListener("click",function(){
-       
-          lightboxAnything(targetElementObject,[]);
-        });
+      $(triggerElements).each(function(key,value){
 
-    }); 
+        if($(this).attr('lba-event-listener') != 'true'){
+
+          $(this).attr('lba-event-listener','true');
+          /**
+          * Add cursor pointer to trigger element
+          */
+          $(this).css('cursor','pointer');
+          /**
+          * Bind event listener to trigger
+          */
+          let targetElementString = $(this).attr("data-target");
+          let targetElementObject = $('#'+targetElementString);
+
+
+          value[0].addEventListener("click",function(){
+         
+            lightboxAnything(targetElementObject,[]);
+          });
+        }
+
+      }); 
+    }
   }
-
+  addEventListenersToTriggers();
 
   function multiselectElements(selectedElement){
     selectedElements.push(selectedElement);

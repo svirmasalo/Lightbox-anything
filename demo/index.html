@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<header class="site-header">
-			<h1>Lightbox anything <span data-target="authorInfo" > v0.7.0</span></h1>
+			<h1>Lightbox anything <span data-target="authorInfo" > v0.7.5</span></h1>
 			<h2>This is a demo to show you how to use this plugin.</h2>
 			<h3>Notes:</h3>
 			<p>Remember to include jQuery, if you havn't already done that.</p>
@@ -90,8 +90,16 @@
 		<script type="text/javascript" src="../lightboxAnything.js"></script>
 		<!--script type="text/javascript" src="../legacy/lightboxAnything.legacy.js"></script--> 
 		<script type="text/javascript">
+
+			/**
+			* Add single element to Lightbox anything
+			*/
 			var x = $('pre');
 			addStuffToLightbox('object',x);
+
+			/**
+			* Add array of elements to Lightbox anything
+			*/
 			var y = [
 				$('.site-header h2'),
 				$('.site-footer')
